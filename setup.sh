@@ -3,6 +3,7 @@ set -e
 
 
 # check if Git is installed
+# TODO check that version is >= 1.7.10
 if [ -n "$(git --version)" ]; then
   echo "Git already installed."
 else
@@ -14,24 +15,35 @@ fi
 
 # usage:
 #   is_set PROPERTY
-is_set () {
-  git config --global --get $1
+config_is_set () {
+  OUTPUT=$(git config --global --get $1)
+  if [ -n "$OUTPUT" ]; then
+    echo "'$1' already set to '$OUTPUT'."
+    return 0
+  else
+    return 1
+  fi
+}
+
+set_config () {
+  echo "Setting '$1' to '$2'."
+  git config --global --add $1 $2
 }
 
 # usage:
 #   config_unless_set PROPERTY VALUE
 config_unless_set () {
-  if [ -z "$(is_set $1)" ]; then
-    git config --global --add $1 $2
+  if ! config_is_set $1; then
+    set_config $1 $2
   fi
 }
 
 # usage:
 #   prompt_unless_set PROPERTY PROMPT
 prompt_unless_set () {
-  if [ -z "$(is_set $1)" ]; then
+  if ! config_is_set $1; then
     read -p "$2 > " VAL
-    git config --global --add $1 $VAL
+    set_config $1 $VAL
   fi
 }
 
@@ -50,3 +62,6 @@ config_unless_set push.default upstream
 
 
 # TODO add credential helper
+
+
+echo "Complete!"
