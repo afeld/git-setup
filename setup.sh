@@ -1,7 +1,9 @@
 set -e
 
 
-# TODO install
+# install command-line tools
+# TODO handle OSes other than Mavericks
+xcode-select --install
 
 
 read -p "What's your full name? > " NAME
@@ -18,3 +20,6 @@ git config --global --add push.default upstream
 
 
 # TODO global .gitignore
+
+
+# TODO add credential helper
