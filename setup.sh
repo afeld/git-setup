@@ -1,9 +1,14 @@
 set -e
 
 
-# install command-line tools
-# TODO handle OSes other than Mavericks
-xcode-select --install
+# check if Git is installed
+if [ -n "$(git --version)" ]; then
+  echo "Git already installed."
+else
+  echo "Installing command-line tools..."
+  # TODO handle OSes other than Mavericks
+  xcode-select --install
+fi
 
 
 read -p "What's your full name? > " NAME
