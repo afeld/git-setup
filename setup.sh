@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 
 
@@ -11,17 +12,38 @@ else
 fi
 
 
-read -p "What's your full name? > " NAME
-git config --global --add user.name $NAME
+# usage:
+#   is_set PROPERTY
+is_set () {
+  git config --global --get $1
+}
 
-read -p "What's your email? > " EMAIL
-git config --global --add user.email $NAME
+# usage:
+#   config_unless_set PROPERTY VALUE
+config_unless_set () {
+  if [ -z "$(is_set $1)" ]; then
+    git config --global --add $1 $2
+  fi
+}
+
+# usage:
+#   prompt_unless_set PROPERTY PROMPT
+prompt_unless_set () {
+  if [ -z "$(is_set $1)" ]; then
+    read -p "$2 > " VAL
+    git config --global --add $1 $VAL
+  fi
+}
+
+# user-specified settings
+prompt_unless_set user.name "What's your full name?"
+prompt_unless_set user.email "What's your email?"
 
 # recommended defaults
-git config --global --add branch.autosetupmerge true
-git config --global --add color.ui true
-git config --global --add core.autocrlf input
-git config --global --add push.default upstream
+config_unless_set branch.autosetupmerge true
+config_unless_set color.ui true
+config_unless_set core.autocrlf input
+config_unless_set push.default upstream
 
 
 # TODO global .gitignore
