@@ -13,7 +13,7 @@ git config --global --add user.email $NAME
 # recommended defaults
 git config --global --add branch.autosetupmerge true
 git config --global --add color.ui true
-git config --global --add core.autocrlf inputs
+git config --global --add core.autocrlf input
 git config --global --add push.default upstream
 
 
