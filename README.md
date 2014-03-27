@@ -13,3 +13,4 @@ See other useful development environment setup projects:
 * https://github.com/github/gitignore
 * http://dotfiles.github.io/
 * https://github.com/afeld/git-plugins
+* http://hub.github.com/
