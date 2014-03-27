@@ -18,7 +18,7 @@ fi
 config_is_set () {
   OUTPUT=$(git config --global --get $1)
   if [ -n "$OUTPUT" ]; then
-    echo "'$1' already set to '$OUTPUT'."
+    echo "EXISTS: $1=$OUTPUT"
     return 0
   else
     return 1
@@ -26,7 +26,7 @@ config_is_set () {
 }
 
 set_config () {
-  echo "Setting '$1' to '$2'."
+  echo "NEW:    $1=$2"
   git config --global --add $1 $2
 }
 
