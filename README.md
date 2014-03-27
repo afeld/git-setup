@@ -5,3 +5,11 @@ Helps install and/or configure Git with good default settings. Currently only Ma
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
 ```
+
+## Resources
+
+See other useful development environment setup projects:
+
+* https://github.com/github/gitignore
+* http://dotfiles.github.io/
+* https://github.com/afeld/git-plugins
