@@ -71,6 +71,7 @@ prompt_unless_set () {
 
 ######################
 
+
 # check if Git is installed
 # TODO check that version is >= 1.7.10 (for autocrlf)
 if which git; then
@@ -79,15 +80,24 @@ else
   install_git
 fi
 
+
 # user-specified settings
 prompt_unless_set user.name "What's your full name?"
 prompt_unless_set user.email "What's your email?"
 
-# recommended defaults
+
+### recommended defaults ###
+
 config_unless_set branch.autosetupmerge true
 config_unless_set color.ui true
 config_unless_set core.autocrlf input
 config_unless_set push.default upstream
+
+# force HTTPS
+# via https://coderwall.com/p/sitezg
+config_unless_set url."https://github.com".insteadOf git://github.com
+
+#############################
 
 
 # TODO set up global .gitignore
