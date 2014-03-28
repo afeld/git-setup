@@ -30,14 +30,23 @@ install_via_github_app () {
 }
 
 install_git () {
-  if command_exists xcode-select; then
+  if command_exists brew; then
+    echo "Installing Git via Homebrew..."
+    brew update
+    brew install git
+    echo "...done."
+  elif command_exists xcode-select; then
     echo "Installing command-line tools..."
     xcode-select --install
     echo "...done."
   elif which apt-get; then
+    echo "Installing Git via apt-get..."
     apt-get install git
+    echo "...done."
   elif which yum; then
+    echo "Installing Git via Yum..."
     yum install git
+    echo "...done."
   else
     install_via_github_app
   fi
