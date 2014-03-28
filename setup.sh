@@ -3,6 +3,10 @@ set -e
 
 ### HELPER METHODS ###
 
+command_exists () {
+  type "$1" &> /dev/null ;
+}
+
 install_via_github_app () {
   if ! [ -a /Applications/GitHub.app ]; then
     echo "Downloading GitHub app..."
@@ -19,7 +23,7 @@ install_via_github_app () {
 
 install_git () {
   # TODO handle OSes other than OSX
-  if which xcode-select; then
+  if command_exists xcode-select; then
     echo "Installing command-line tools..."
     xcode-select --install
   else
@@ -27,7 +31,7 @@ install_git () {
   fi
 
   # re-check for Git
-  if which git; then
+  if command_exists git; then
     echo "$(git --version) successfully installed."
   else
     echo "Git failed to install. Please try again, or open an issue at https://github.com/afeld/git-setup/issues."
@@ -81,7 +85,7 @@ install_keychain_credential_helper () {
 
 
 # check if Git is installed
-if which git; then
+if command_exists git; then
   # TODO check that version is >= 1.7.10 (for autocrlf and credential helper)
   echo "$(git --version) already installed."
 else
@@ -89,12 +93,14 @@ else
 fi
 
 
-if which git-credential-osxkeychain; then
+if command_exists git-credential-osxkeychain; then
   echo "OSX keychain credential helper already installed."
 else
   install_keychain_credential_helper
 fi
 
+
+echo "Setting configuration..."
 
 # user-specified settings
 prompt_unless_set user.name "What's your full name?"
