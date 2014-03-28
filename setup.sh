@@ -69,15 +69,30 @@ prompt_unless_set () {
   fi
 }
 
+install_keychain_credential_helper () {
+  echo "Installing OSX keychain credential helper..."
+  curl -o ~/Downloads/git-credential-osxkeychain -s https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain
+  chmod u+x ~/Downloads/git-credential-osxkeychain
+  sudo mv ~/Downloads/git-credential-osxkeychain "$(dirname $(which git))/git-credential-osxkeychain"
+  config_unless_set credential.helper osxkeychain
+}
+
 ######################
 
 
 # check if Git is installed
-# TODO check that version is >= 1.7.10 (for autocrlf)
 if which git; then
+  # TODO check that version is >= 1.7.10 (for autocrlf and credential helper)
   echo "$(git --version) already installed."
 else
   install_git
+fi
+
+
+if which git-credential-osxkeychain; then
+  echo "OSX keychain credential helper already installed."
+else
+  install_keychain_credential_helper
 fi
 
 
