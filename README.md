@@ -6,6 +6,14 @@ Helps install and/or configure Git with good default settings. Currently **only 
 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
 ```
 
+If you run into problems, run
+
+```bash
+DEBUG=1 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
+```
+
+and paste it into an [issue](https://github.com/afeld/git-setup/issues).
+
 ## Windows
 
 For Windows setup, I recommend [GitHub for Windows](http://windows.github.com/) or the [official Git installer](http://git-scm.com/downloads).
