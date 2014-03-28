@@ -27,9 +27,8 @@ install_git () {
   fi
 
   # re-check for Git
-  GIT_VERSION=$(git --version)
-  if [ -n "$GIT_VERSION" ]; then
-    echo "Git $GIT_VERSION successfully installed."
+  if which git; then
+    echo "$(git --version) successfully installed."
   else
     echo "Git failed to install. Please try again, or open an issue at https://github.com/afeld/git-setup/issues."
     exit 1
@@ -74,9 +73,8 @@ prompt_unless_set () {
 
 # check if Git is installed
 # TODO check that version is >= 1.7.10 (for autocrlf)
-GIT_VERSION=$(git --version)
-if [ -n "$GIT_VERSION" ]; then
-  echo "Git $GIT_VERSION already installed."
+if which git; then
+  echo "$(git --version) already installed."
 else
   install_git
 fi
