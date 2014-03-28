@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+if [ -n $DEBUG ]; then
+  set -x
+fi
 
 
 ### HELPER METHODS ###
