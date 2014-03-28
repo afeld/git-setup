@@ -95,6 +95,54 @@ install_keychain_credential_helper () {
   echo "...done."
 }
 
+set_up_https_only () {
+  if command_exists git-credential-osxkeychain; then
+    echo "OSX keychain credential helper already installed."
+  else
+    install_keychain_credential_helper
+  fi
+
+  # force HTTPS
+  # via https://coderwall.com/p/sitezg
+  config_unless_set url."https://github.com".insteadOf git://github.com
+}
+
+can_ssh_to_github () {
+  ssh -o ConnectTimeout=5 -T git@github.com 2>&1 | grep successful
+}
+
+create_ssh_key () {
+  echo "Creating SSH key..."
+  EMAIL="$(git config --global --get user.email)"
+  ssh-keygen -t rsa -C $EMAIL
+  ssh-add ~/.ssh/id_rsa
+  echo "...done."
+}
+
+add_ssh_key_to_github () {
+  echo "1. Copy the following:\n"
+  cat ~/.ssh/id_rsa.pub
+  echo "\n2. Go to https://github.com/settings/ssh\n3. Click 'Add SSH key'\n4. Set the title to the name of your computer\n5. Paste the long string from above into the 'Key' field.\n6. Click 'Add key'\n"
+  read -p "Press ENTER when done. > "
+
+  if can_ssh_to_github; then
+    echo "GitHub SSH set up successfully."
+  else
+    echo "Failed to set up SSH. See https://help.github.com/articles/generating-ssh-keys#step-4-test-everything-out for troubleshooting help."
+    exit 1
+  fi
+}
+
+set_up_ssh () {
+  if [ -a ~/.ssh/id_rsa ]; then
+    echo "SSH key already exists."
+  else
+    create_ssh_key
+  fi
+
+  add_ssh_key_to_github
+}
+
 ######################
 
 
@@ -107,35 +155,24 @@ else
 fi
 
 
-# set up credentials
-if is_mac; then
-  if command_exists git-credential-osxkeychain; then
-    echo "OSX keychain credential helper already installed."
-  else
-    install_keychain_credential_helper
-  fi
-
-  # force HTTPS
-  # via https://coderwall.com/p/sitezg
-  config_unless_set url."https://github.com".insteadOf git://github.com
-else
-  # TODO set up SSH for them
-  read -p "Set up SSH keys – see https://help.github.com/articles/generating-ssh-keys. Press ENTER when done. > "
-fi
-
-
-echo "Setting configuration..."
-
 # user-specified settings
 prompt_unless_set user.name "What's your full name?"
 prompt_unless_set user.email "What's your email?"
 
-# recommended defaults
+
+# set up credentials
+if is_mac; then
+  set_up_https_only
+elif ! can_ssh_to_github; then
+  set_up_ssh
+fi
+
+
+echo "Setting recommended defaults..."
 config_unless_set branch.autosetupmerge true
 config_unless_set color.ui true
 config_unless_set core.autocrlf input
 config_unless_set push.default upstream
-
 echo "...done."
 
 
