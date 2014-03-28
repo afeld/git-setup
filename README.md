@@ -16,7 +16,7 @@ and paste the output into a new [issue](https://github.com/afeld/git-setup/issue
 
 ## Windows
 
-For Windows setup, I recommend [GitHub for Windows](http://windows.github.com/) or the [official Git installer](http://git-scm.com/downloads).
+For Windows setup, I recommend [GitHub for Windows](http://windows.github.com/) which comes preconfigured with all of the fixes in git-setup.
 
 ## Resources
 
