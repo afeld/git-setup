@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+
 ### HELPER METHODS ###
 
 command_exists () {
@@ -22,10 +23,13 @@ install_via_github_app () {
 }
 
 install_git () {
-  # TODO handle OSes other than OSX
   if command_exists xcode-select; then
     echo "Installing command-line tools..."
     xcode-select --install
+  elif which apt-get; then
+    apt-get install git
+  elif which yum; then
+    yum install git
   else
     install_via_github_app
   fi
@@ -73,6 +77,14 @@ prompt_unless_set () {
   fi
 }
 
+is_mac () {
+  if [ "$(uname -s)" == "Darwin" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 install_keychain_credential_helper () {
   echo "Installing OSX keychain credential helper..."
   curl -o ~/Downloads/git-credential-osxkeychain -s https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain
@@ -92,11 +104,19 @@ else
   install_git
 fi
 
+if is_mac; then
+  if command_exists git-credential-osxkeychain; then
+    echo "OSX keychain credential helper already installed."
+  else
+    install_keychain_credential_helper
+  fi
 
-if command_exists git-credential-osxkeychain; then
-  echo "OSX keychain credential helper already installed."
+  # force HTTPS
+  # via https://coderwall.com/p/sitezg
+  config_unless_set url."https://github.com".insteadOf git://github.com
 else
-  install_keychain_credential_helper
+  # TODO set up SSH for them
+  read -p "Set up SSH keys – see https://help.github.com/articles/generating-ssh-keys. Press ENTER when done. > "
 fi
 
 
@@ -106,19 +126,11 @@ echo "Setting configuration..."
 prompt_unless_set user.name "What's your full name?"
 prompt_unless_set user.email "What's your email?"
 
-
-### recommended defaults ###
-
+# recommended defaults
 config_unless_set branch.autosetupmerge true
 config_unless_set color.ui true
 config_unless_set core.autocrlf input
 config_unless_set push.default upstream
-
-# force HTTPS
-# via https://coderwall.com/p/sitezg
-config_unless_set url."https://github.com".insteadOf git://github.com
-
-#############################
 
 
 # TODO set up global .gitignore
