@@ -26,6 +26,7 @@ install_git () {
   if command_exists xcode-select; then
     echo "Installing command-line tools..."
     xcode-select --install
+    echo "...done."
   elif which apt-get; then
     apt-get install git
   elif which yum; then
@@ -91,6 +92,7 @@ install_keychain_credential_helper () {
   chmod u+x ~/Downloads/git-credential-osxkeychain
   sudo mv ~/Downloads/git-credential-osxkeychain "$(dirname $(which git))/git-credential-osxkeychain"
   config_unless_set credential.helper osxkeychain
+  echo "...done."
 }
 
 ######################
@@ -104,6 +106,8 @@ else
   install_git
 fi
 
+
+# set up credentials
 if is_mac; then
   if command_exists git-credential-osxkeychain; then
     echo "OSX keychain credential helper already installed."
@@ -131,6 +135,8 @@ config_unless_set branch.autosetupmerge true
 config_unless_set color.ui true
 config_unless_set core.autocrlf input
 config_unless_set push.default upstream
+
+echo "...done."
 
 
 # TODO set up global .gitignore
