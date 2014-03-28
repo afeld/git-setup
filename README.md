@@ -12,7 +12,7 @@ If you run into problems, run
 DEBUG=1 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
 ```
 
-and paste it into an [issue](https://github.com/afeld/git-setup/issues).
+and paste the output into a new [issue](https://github.com/afeld/git-setup/issues).
 
 ## Windows
 
