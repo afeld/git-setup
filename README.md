@@ -6,13 +6,17 @@ Helps install and/or configure Git with good default settings. Currently **only 
 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
 ```
 
-If you run into problems, run
+**If you run into problems**, run
 
 ```bash
+uname -a
+ssh -V
+curl --version
+openssl version
 DEBUG=1 bash <(curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh)
 ```
 
-and paste the output into a new [issue](https://github.com/afeld/git-setup/issues).
+and paste the output into a [new issue](https://github.com/afeld/git-setup/issues/new).
 
 ## Windows
 
