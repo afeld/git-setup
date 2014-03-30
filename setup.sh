@@ -1,12 +1,5 @@
 #!/bin/sh
 set -e
-if [ -n $DEBUG ]; then
-  set -x
-
-  uname -a
-  ssh -V
-  curl --version
-fi
 
 
 ### HELPER METHODS ###
