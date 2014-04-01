@@ -152,8 +152,18 @@ set_up_ssh () {
   add_ssh_key_to_github
 }
 
-######################
+set_recommended_defaults () {
+  # see http://git-scm.com/docs/git-config for descriptions
+  echo "Setting recommended defaults..."
+  config_unless_set branch.autosetupmerge true
+  config_unless_set color.ui true
+  config_unless_set core.autocrlf input
+  config_unless_set push.default upstream
+  echo "...done."
+}
 
+######################
+#### INSTALLATION ####
 
 # check if Git is installed
 if command_exists git; then
@@ -177,18 +187,10 @@ elif ! can_ssh_to_github; then
 fi
 
 
-echo "Setting recommended defaults..."
-config_unless_set branch.autosetupmerge true
-config_unless_set color.ui true
-config_unless_set core.autocrlf input
-config_unless_set push.default upstream
-echo "...done."
+set_recommended_defaults
 
 
 # TODO set up global .gitignore
-
-
-# TODO add credential helper
 
 
 echo "Complete!"
