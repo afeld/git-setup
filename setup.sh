@@ -158,6 +158,7 @@ set_recommended_defaults () {
   config_unless_set branch.autosetupmerge true
   config_unless_set color.ui true
   config_unless_set core.autocrlf input
+  config_unless_set core.precomposeunicode true
   config_unless_set push.default upstream
   echo "...done."
 }
