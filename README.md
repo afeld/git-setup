@@ -5,7 +5,7 @@ Helps install and/or configure Git with good default settings, including:
 * User information
 * Simple branching
 * Colors for command-line output
-* Cross-platform line-ending compatibility
+* Cross-platform compatibility
 
 The script is safe to run even if you already have Git installed or have some of these settings in place already... it will only add those not previously set.
 
