@@ -96,7 +96,7 @@ is_mac () {
 }
 
 install_keychain_credential_helper () {
-  echo "Installing OSX keychain credential helper..."
+  echo "Installing OSX keychain credential helper (you may be prompted for your computer password)..."
   curl -o ~/Downloads/git-credential-osxkeychain -s https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain
   chmod u+x ~/Downloads/git-credential-osxkeychain
   sudo mv ~/Downloads/git-credential-osxkeychain "$(dirname $(which git))/git-credential-osxkeychain"
