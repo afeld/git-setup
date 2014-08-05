@@ -34,7 +34,8 @@ install_git () {
     echo "...done."
   elif which apt-get; then
     echo "Installing Git via apt-get..."
-    apt-get install git
+    sudo apt-get update
+    sudo apt-get install git
     echo "...done."
   elif which yum; then
     echo "Installing Git via Yum..."
