@@ -33,7 +33,7 @@ and paste the output into a [new issue](https://github.com/afeld/git-setup/issue
 
 ### Windows
 
-For Windows setup, try [GitHub for Windows](http://windows.github.com/), which comes preconfigured with all of the fixes in git-setup.
+For Windows setup, try [GitHub for Windows](http://windows.github.com/), which comes preconfigured with all of the fixes in git-setup. [The official build](http://git-scm.com/downloads) or [Git Portable](https://github.com/bungeshea/GitPortable) are also options.
 
 ## Resources
 
