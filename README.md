@@ -35,9 +35,9 @@ and paste the output into a [new issue](https://github.com/afeld/git-setup/issue
 
 For Windows setup, try [GitHub for Windows](http://windows.github.com/), which comes preconfigured with all of the fixes in git-setup. Alternatives:
 
-* [The official build](http://git-scm.com/downloads)
-* [mysysgit](http://msysgit.github.io/)
+* [The official installer](http://git-scm.com/downloads) (a.k.a. [mysysGit](http://msysgit.github.io/)
 * [Git Portable](https://github.com/bungeshea/GitPortable)
+* [More info](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git#Installing-on-Windows)
 
 ## Resources
 
